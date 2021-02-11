@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="poo-toolbox" Database="" Version="10.0.0">
+  <Project Name="poo-toolbox" Path="poo-toolbox.project" Active="No"/>
+  <Project Name="pcf8574-example" Path="pcf8574-example/pcf8574-example.project" Active="No"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="poo-toolbox" ConfigName="Debug"/>
+      <Project Name="pcf8574-example" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="poo-toolbox" ConfigName="Debug"/>
+      <Project Name="pcf8574-example" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
