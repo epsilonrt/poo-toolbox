@@ -15,13 +15,18 @@ Pcf8574	KEYWORD1
 
 # TwoWireDevice
 TwoWireDevice	KEYWORD2
+write	KEYWORD2
+read	KEYWORD2
+end	KEYWORD2
 get_address	KEYWORD2
+get_bus	KEYWORD2
 set_address	KEYWORD2
+isOpen	KEYWORD2
+
 
 # Pcf8574	
 Pcf8574	KEYWORD2
-get_mode	KEYWORD2
-set_mode	KEYWORD2
+pinModes	KEYWORD2
 
 ################################################################################
 # Instances (KEYWORD2)

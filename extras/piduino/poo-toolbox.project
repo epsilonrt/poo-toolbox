@@ -56,6 +56,7 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="doc">
+    <File Name="../doc/Doxyfile"/>
     <File Name="../../README.md"/>
     <File Name="../../keywords.txt"/>
   </VirtualDirectory>

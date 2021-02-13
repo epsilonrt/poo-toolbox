@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="poo-toolbox" Database="" Version="10.0.0">
   <Project Name="poo-toolbox" Path="poo-toolbox.project" Active="No"/>
-  <Project Name="pcf8574-example" Path="pcf8574-example/pcf8574-example.project" Active="No"/>
+  <Project Name="pcf8574-blink" Path="pcf8574-blink/pcf8574-blink.project" Active="No"/>
+  <Project Name="pcf8574-button" Path="pcf8574-button/pcf8574-button.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="poo-toolbox" ConfigName="Debug"/>
-      <Project Name="pcf8574-example" ConfigName="Debug"/>
+      <Project Name="pcf8574-blink" ConfigName="Debug"/>
+      <Project Name="pcf8574-button" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
       <Project Name="poo-toolbox" ConfigName="Debug"/>
-      <Project Name="pcf8574-example" ConfigName="Release"/>
+      <Project Name="pcf8574-blink" ConfigName="Release"/>
+      <Project Name="pcf8574-button" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

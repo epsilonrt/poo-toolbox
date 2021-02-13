@@ -1,3 +1,19 @@
+/* Copyright © 2021 Pascal JEAN, All rights reserved.
+ * This file is part of the POO Toolbox Library.
+ *
+ * The POO Toolbox Library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * The POO Toolbox Library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the POO Toolbox Library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "pcf8574.h"
 
 // -----------------------------------------------------------------------------
@@ -7,54 +23,113 @@
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-Pcf8574::Pcf8574 (uint8_t slaveAddress, TwoWire & bus) :
+Pcf8574::Pcf8574 (TwoWire & bus, uint8_t slaveAddress) :
   TwoWireDevice (slaveAddress, bus), dir (0xFF), out (0)  {
 }
 
 // -----------------------------------------------------------------------------
+Pcf8574::Pcf8574 (uint8_t slaveAddress) :
+  Pcf8574 (Wire, slaveAddress)  {
+}
+
+// -----------------------------------------------------------------------------
 Pcf8574::~Pcf8574() {
-  TwoWireDevice::write (0xFF);
+
+  dir = 0xFF;
+  write();
 }
 
 // -----------------------------------------------------------------------------
-bool Pcf8574::write () {
-  return TwoWireDevice::write (dir | (~dir & out));
+int Pcf8574::write () {
+
+  if (isOpen()) {
+
+    return TwoWireDevice::write (dir | (~dir & out));
+  }
+  return 0;
 }
 
 // -----------------------------------------------------------------------------
-bool Pcf8574::write (uint8_t value) {
+int Pcf8574::write (uint8_t value) {
+
   out = value & ~dir;
   return write();
 }
 
 // -----------------------------------------------------------------------------
-uint8_t Pcf8574::read() {
-  return (TwoWireDevice::read() & dir) | (out & ~dir);
+int Pcf8574::read () {
+
+  if (isOpen()) {
+    
+    return TwoWireDevice::read();
+  }
+  return 0;
+}
+
+
+// -----------------------------------------------------------------------------
+int Pcf8574::digitalWrite (int pin, bool value) {
+
+  if (pin < 8) {
+
+    if (pinMode (pin) == OUTPUT) {
+
+      if (value) {
+
+        out |= 1 << pin;
+      }
+      else {
+
+        out &= ~ (1 << pin);
+      }
+      return write();
+    }
+  }
+  return -1;
+}
+
+// -----------------------------------------------------------------------------
+int Pcf8574::digitalRead (int pin) {
+  int ret = -1;
+
+  if (pin < 8) {
+
+    ret = read();
+    if (ret >= 0) {
+
+      ret = ( ( (1 << pin) & ret) != 0);
+    }
+  }
+  return ret;
 }
 
 // -----------------------------------------------------------------------------
 bool Pcf8574::begin () {
-  return write();
+
+  TwoWireDevice::begin();
+  return (write() == 1);
 }
 
 // -----------------------------------------------------------------------------
-bool Pcf8574::pinModes (uint8_t pinmodes) {
+int Pcf8574::pinModes (uint8_t pinmodes) {
   pinmodes = ~pinmodes;
 
   if (pinmodes != dir) {
+
     dir = pinmodes;
     return write();
   }
-  return true;
+  return 0;
 }
 
 // -----------------------------------------------------------------------------
 int Pcf8574::pinModes () const {
+
   return (unsigned) ~dir;
 }
 
 // -----------------------------------------------------------------------------
-bool Pcf8574::set_mode (int pin, int pinmode) {
+int Pcf8574::pinMode (int pin, int pinmode) {
 
   if ( (pin < 8) &&
        ( (pinmode == OUTPUT) || (pinmode == INPUT) || (pinmode == INPUT_PULLUP))) {
@@ -70,7 +145,7 @@ bool Pcf8574::set_mode (int pin, int pinmode) {
     }
     return pinModes (pinmodes);
   }
-  return false;
+  return -1;
 }
 
 // -----------------------------------------------------------------------------
@@ -84,35 +159,4 @@ int Pcf8574::pinMode (int pin) const {
     return OUTPUT;
   }
   return -1;
-}
-
-// -----------------------------------------------------------------------------
-bool Pcf8574::write (int pin, bool value) {
-
-  if (pin < 8) {
-    
-    if (pinMode (pin) == OUTPUT) {
-      
-      if (value) {
-        
-        out |= 1 << pin;
-      }
-      else {
-
-        out &= ~ (1 << pin);
-      }
-      return write();
-    }
-  }
-  return false;
-}
-
-// -----------------------------------------------------------------------------
-bool Pcf8574::read (int pin) {
-  
-  if (pin < 8) {
-
-    return ( (1 << pin) & read()) != 0;
-  }
-  return false;
 }
