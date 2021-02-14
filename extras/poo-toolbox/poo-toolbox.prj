@@ -1,0 +1,919 @@
+format 222
+"poo-toolbox"
+  revision 1
+  modified_by 2 "pascal"
+
+
+  
+  // class settings
+  default_attribute_visibility private default_relation_visibility private default_operation_visibility public
+  
+  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes gradient none show_stereotype_properties no end
+  
+  classcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
+  
+  usecasediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes class_drawing_mode actor shadow yes gradient none show_stereotype_properties no end
+  
+  sequencediagramsettings show_full_operations_definition no show_class_of_operation no write_horizontally yes instances_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes gradient none show_stereotype_properties no show_class_context_mode no show_msg_context_mode no end
+  
+  collaborationdiagramsettings show_full_operations_definition no show_class_of_operation no show_hierarchical_rank no write_horizontally yes instances_drawing_mode natural drawing_language uml package_name_in_tab no show_class_pack_context_mode no show_msg_context_mode no draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
+  
+  objectdiagramsettings write_horizontally yes package_name_in_tab no show_class_pack_context_mode no auto_label_position yes draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
+  
+  objectcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
+  
+  componentdiagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes shadow yes gradient none
+   draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no end
+  
+  deploymentdiagramsettings package_name_in_tab no show_context_mode no write_horizontally yes auto_label_position yes draw_all_relations yes shadow yes gradient none
+   draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no end
+  
+  statediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes write_label_horizontally yes show_trans_definition no draw_all_relations yes shadow yes gradient none
+   show_activities yes region_horizontally yes drawing_language uml show_stereotype_properties no end
+  
+  activitydiagramsettings package_name_in_tab no show_context_mode no show_opaque_action_definition no auto_label_position yes write_label_horizontally no draw_all_relations yes shadow yes gradient none
+   show_infonote yes drawing_language uml show_stereotype_properties no end
+  
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white generalization_color black 
+  dpi 96
+  font_size 11
+  diagram_format A4
+
+  image_root_dir ""
+
+
+  mark_for_import
+  
+  deploymentview 128130 "src"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 128130 "pcf8574"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 128130 // Pcf8574
+      end
+    end
+
+    artifact 128258 "twowiredevice"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 128258 // TwoWireDevice
+      end
+    end
+  end
+
+  classview 128130 "src"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 128130 "Pcf8574"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+@class Pcf8574
+@author Pascal JEAN
+@date 02/11/21
+@file pcf8574.h
+@brief Remote 8-Bit I/O Expander for I2C Bus
+
+The I/O is defined as quasi-bidirectional. A quasi-bidirectional I/O is
+either an input or output port without using a direction control register.
+When set as inputs, the pins act as normal inputs do.  When set as outputs,
+the PCF8574 device drives the outputs LOW with up to 25mA sink capability but
+when driving the outputs HIGH, they are just pulled up high with a weak
+internal pull-up.  That enables an external device to overpower the pin and
+drive it LOW.
+
+The device powers up with the 8 data lines all set as inputs.
+
+When using the pins as inputs, the pins are set to HIGH by the MCU, which
+turns on a weak 100 uA internal pull-up to Vcc. They will read as HIGH if
+there is no input or if the pin is being driven HIGH by an external signal
+but can be driven LOW by an external signal that can easily override the
+weak pull-up.
+
+If used as outputs, they can be driven LOW by the MCU by writing a LOW to
+that pin. A strong pull-down is turned on and stays on to keep the pin
+pulled LOW. If the pin is driven HIGH by the MCU, a strong pull-up is turned
+on for a short time to quickly pull the pin HIGH and then the weak 100uA
+pull-up is turned back on to keep the pin HIGH.
+
+If the pins are set to be outputs and are driven LOW, it is important that an
+external signal does not also try to drive it HIGH or excessive current may
+flow and damage the part.
+
+Whenever the internal register is read, the value returned depends on the
+actual voltage or status of the pin.
+
+The I/O ports are entirely independent of each other, but they are controlled
+by the same read or write data byte.
+
+see https://www.ti.com/lit/ds/symlink/pcf8574.pdf
+"
+      classrelation 128130 // <generalisation>
+	relation 128130 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 128130 // <generalisation>
+	  b parent class_ref 128258 // TwoWireDevice
+      end
+
+      operation 128130 "Pcf8574"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 1
+	  param in name "slaveAddress" explicit_type "uint8_t"
+	    defaultvalue "0x20"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}${)} :
+  Pcf8574 (Wire, slaveAddress)  ${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Default Constructor
+
+Uses the default I2C bus which depends on the target board used.
+
+@param slaveAddress 7-bit I²C slave address, right-aligned
+this value depends on pins A0 to A2. The address of PCF8574 is 0100XXX,
+with XXX = A2, A1, A0. If pins A2 to A0 are low, the address is
+0x20 (default).
+"
+      end
+
+      operation 128258 "Pcf8574"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 2
+	  param inout name "bus" explicit_type "TwoWire"
+	  param in name "slaveAddress" explicit_type "uint8_t"
+	    defaultvalue "0x20"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} & ${p0}${v0}, ${t1} ${p1}${v1}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+//
+//                            Pcf8574 class
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${class}::${name}${(}${t0} & ${p0}, ${t1} ${p1}${)} :
+  TwoWireDevice (slaveAddress, bus), dir (0xFF), out (0)  ${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Constructor
+
+@param bus I²C bus to use
+@param slaveAddress 7-bit I²C slave address, right-aligned
+this value depends on pins A0 to A2. The address of PCF8574 is 0100XXX,
+with XXX = A2, A1, A0. If pins A2 to A0 are low, the address is
+0x20 (default).
+"
+      end
+
+      operation 128386 "~Pcf8574"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Destructor
+
+Return all pins to input (0xFF)
+"
+      end
+
+      operation 128514 "begin"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Open the bus and configure all pins
+
+@return true, false if an error occurred, in this case error() allows
+to read the error code
+"
+      end
+
+      operation 128642 "pinMode"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 2
+	  param in name "pin" explicit_type "int"
+	  param in name "pinmode" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Configures a pin as an input or an output
+
+Only pins configured as output can be changed by write().
+All pins can be read.
+@param pin pin number between 0 and 7 (P0 to P7)
+@param pinmode pin mode, OUTPUT, INPUT or INPUT_PULLUP, as explained in
+the datasheet, inputs P0 to P7 have a pull-up current, so there is no
+difference between INPUT and INPUT_PULLUP.
+@return 1 in case of success if bus open, 0 if stored bus closed, 
+-1 if error.
+"
+      end
+
+      operation 128770 "pinMode"
+	preserve_cpp_body_indent const public explicit_return_type "int"
+	nparams 1
+	  param in name "pin" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Read pin mode
+@param pin pin number between 0 and 7 (P0 to P7)
+@return INPUT, OUTPUT, -1 if error 
+"
+      end
+
+      operation 128898 "digitalWrite"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 2
+	  param in name "pin" explicit_type "int"
+	  param in name "value" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write a HIGH or a LOW value to a digital pin.
+
+Only the pins configured as output see their state modified.
+
+@param pin pin number between 0 and 7 (P0 to P7)
+@param bit value, HIGH or LOW
+@return 1 in case of success if bus open, 0 if stored bus closed, 
+-1 if error.
+"
+      end
+
+      operation 129026 "digitalRead"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param in name "pin" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Reads the value from a specified digital pin
+@param pin pin number between 0 and 7 (P0 to P7)
+@return HIGH or LOW, -1 if error
+"
+      end
+
+      operation 129154 "pinModes"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param in name "pinmodes" explicit_type "uint8_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Configures all pins
+@param pinmodes pin modes, the bit is high for an output, low for an input.
+@return 1 in case of success if bus open, 0 if stored bus closed, 
+-1 if error.
+"
+      end
+
+      operation 129282 "pinModes"
+	preserve_cpp_body_indent const public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Read all pin modes
+@return pin modes, the bit is high for an output, low for an input, -1 if
+error
+"
+      end
+
+      operation 129410 "write"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param in name "value" explicit_type "uint8_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write all output pins
+
+Only the pins configured as output see their state modified.
+@param value bit 0 for P0 ... bit 7 for P7
+@return 1 in case of success if bus open, 0 if stored bus closed, 
+-1 if error.
+"
+      end
+
+      operation 129538 "read"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Reads all pins
+@return bit 0 for P0 ... bit 7 for P7, 0 if bus closed, -1 if error
+"
+      end
+
+      operation 129666 "write"
+	preserve_cpp_body_indent protected explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write current configuration 
+@return 1 in case of success if bus open, 0 if stored bus closed, 
+-1 if error.
+"
+      end
+
+      attribute 128130 "dir"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128258 "out"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    class 128258 "TwoWireDevice"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@class TwoWireDevice
+@author Pascal JEAN
+@date 02/11/21
+@file twowiredevice.h
+@brief I²C integrated circuit
+
+Allows write-read access to an I²C slave circuit
+"
+      operation 129794 "TwoWireDevice"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 2
+	  param in name "slaveAddress" explicit_type "uint8_t"
+	  param inout name "bus" explicit_type "TwoWire"
+	    defaultvalue "Wire"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}, ${t1} & ${p1}${v1}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+//
+//                            TwoWireDevice class
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} & ${p1}${)} :
+  bus (bus), address (slaveAddress)  ${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Constructor
+@param slaveAddress 7-bit I²C slave address, right-aligned
+@param bus reference on the I²C bus to use
+"
+      end
+
+      operation 129922 "~TwoWireDevice"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Destructor
+
+call end()
+"
+      end
+
+      operation 130050 "begin"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Open the I²C bus used
+"
+      end
+
+      operation 130178 "end"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Close the I²C bus used
+"
+      end
+
+      operation 130306 "write"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param in name "value" explicit_type "uint8_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write a byte in the integrated circuit
+
+The frame is made up of a start condition, the slave address with an
+RW bit low, the \\c value byte and a stop condition.
+@param value byte to write
+@return number of bytes written, -1 if error
+"
+      end
+
+      operation 130434 "read"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Reading a byte in the integrated circuit
+
+The frame is made up of a start condition, the slave address with an
+RW bit high, the byte read and a stop condition.
+@return byte read as unsigned, -1 if error
+"
+      end
+
+      operation 130562 "write"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 2
+	  param in name "values" explicit_type "uint8_t"
+	  param in name "len" explicit_type "uint16_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}const ${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}const ${t0} * ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write several bytes in the integrated circuit
+
+The frame is made up of a start condition, the slave address with an
+RW bit low, the bytes to write and a stop condition.
+@param values pointer to the bytes to write
+@param number of bytes to write
+@return number of bytes written, -1 if error
+"
+      end
+
+      operation 130690 "read"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 2
+	  param inout name "values" explicit_type "uint8_t"
+	  param in name "len" explicit_type "uint16_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Reading several bytes in the integrated circuit
+
+The frame is made up of a start condition, the slave address with an
+RW bit high, the bytes read and a stop condition.
+@param values pointer where to store bytes, must be able to store at least n bytes
+@param number of bytes to read
+@return number of bytes read, -1 if error
+"
+      end
+
+      operation 130818 "write"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 2
+	  param in name "dataAddress" explicit_type "uint8_t"
+	  param in name "value" explicit_type "uint8_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write a byte in an integrated circuit register
+
+The frame is made up of a start condition, the slave address with an
+RW bit low, the \\c dataAddress, the \\c value byte and a stop condition.
+@param dataAddress register address or control byte
+@param value byte to write
+@return number of bytes written, -1 if error
+"
+      end
+
+      operation 130946 "read"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param in name "dataAddress" explicit_type "uint8_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Reading a byte in an integrated circuit register
+
+The frame is made up of a start condition, the slave address with an
+RW bit high, the \\c dataAddress, the byte read and a stop condition.
+@param dataAddress register address or control byte
+@return byte read
+"
+      end
+
+      operation 131074 "write"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 3
+	  param in name "dataAddress" explicit_type "uint8_t"
+	  param in name "values" explicit_type "uint8_t"
+	  param in name "len" explicit_type "uint16_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, const ${t1} * ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, const ${t1} * ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Write bytes in integrated circuit registers
+
+The frame is made up of a start condition, the slave address with an
+RW bit low, the \\c dataAddress, the bytes to write and a stop condition.
+@param dataAddress register address or control byte
+@param values pointer to the bytes to write
+@param number of bytes to write
+@return number of bytes written, -1 if error
+"
+      end
+
+      operation 131202 "read"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 3
+	  param in name "dataAddress" explicit_type "uint8_t"
+	  param inout name "values" explicit_type "uint8_t"
+	  param in name "len" explicit_type "uint16_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} * ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// -----------------------------------------------------------------------------
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} * ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+	comment "@brief Reading several bytes in the integrated circuit
+
+The frame is made up of a start condition, the slave address with an
+RW bit high, the \\c dataAddress, the bytes read and a stop condition.
+@param dataAddress register address or control byte
+@param values pointer where to store bytes, must be able to store at least n bytes
+@param number of bytes to read
+@return number of bytes read, -1 if error
+"
+      end
+
+      operation 131330 "get_address"
+	const cpp_inline public explicit_return_type "uint8_t"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+      
+      return address;
+    };
+"
+	
+	
+	
+	
+	comment "@brief Reading of the slave address of the integrated circuit
+@return 7-bit I²C slave address, right-aligned
+"
+      end
+
+      operation 131458 "set_address"
+	cpp_inline public explicit_return_type "void"
+	nparams 1
+	  param in name "slaveAddress" explicit_type "uint8_t"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract} {
+      
+      address = slaveAddress;
+    };
+"
+	
+	
+	
+	
+	comment "@brief Change of the slave address of the integrated circuit 
+@param slaveAddress 7-bit I²C slave address, right-aligned
+"
+      end
+
+      operation 131586 "get_bus"
+	const cpp_inline public explicit_return_type "TwoWire"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} & ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+      
+      return bus;
+    };
+"
+	
+	
+	
+	
+	comment "@brief Returns the I²C bus used to access the integrated circuit
+@return reference on the I²C bus used
+"
+      end
+
+      operation 131714 "isOpen"
+	const cpp_inline public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract} {
+      
+      return bus.isOpen();
+    };
+"
+	
+	
+	
+	
+	comment "@brief Returns true if the I²C bus used is opened
+"
+      end
+
+      attribute 128386 "bus"
+	private explicit_type "TwoWire"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} & ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128514 "address"
+	private explicit_type "uint8_t"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    classdiagram 128130 "I2C Classes"
+      classdiagramsettings member_max_width 0 end
+      size A4
+    end
+  end
+
+end

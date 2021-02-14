@@ -1,0 +1,16 @@
+format 222
+
+classcanvas 128002 class_ref 128258 // TwoWireDevice
+  classdiagramsettings member_max_width 0 end
+  xyz 474 74 2000
+end
+classcanvas 128130 class_ref 128130 // Pcf8574
+  classdiagramsettings member_max_width 0 end
+  xyz 173 103 2006
+end
+relationcanvas 128258 relation_ref 128130 // <generalisation>
+  from ref 128130 z 2007 to ref 128002
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

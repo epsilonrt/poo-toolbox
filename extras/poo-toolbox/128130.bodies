@@ -1,0 +1,111 @@
+class Pcf8574
+!!!128130.cpp!!!	Pcf8574(in slaveAddress : uint8_t = 0x20)
+
+!!!128258.cpp!!!	Pcf8574(inout bus : TwoWire, in slaveAddress : uint8_t = 0x20)
+
+!!!128386.cpp!!!	~Pcf8574()
+
+
+  dir = 0xFF;
+  write();
+!!!128514.cpp!!!	begin() : bool
+
+
+  TwoWireDevice::begin();
+  return (write() == 1);
+!!!128642.cpp!!!	pinMode(in pin : int, in pinmode : int) : int
+
+
+  if ( (pin < 8) &&
+       ( (pinmode == OUTPUT) || (pinmode == INPUT) || (pinmode == INPUT_PULLUP))) {
+    uint8_t pinmodes = pinModes();
+
+    if (pinmode == OUTPUT) {
+
+      pinmodes |= (1 << pin);
+    }
+    else {
+
+      pinmodes &= ~ (1 << pin);
+    }
+    return pinModes (pinmodes);
+  }
+  return -1;
+!!!128770.cpp!!!	pinMode(in pin : int) : int
+
+
+  if (pin < 8) {
+
+    if ( (1 << pin) & dir) {
+      return INPUT;
+    }
+    return OUTPUT;
+  }
+  return -1;
+!!!128898.cpp!!!	digitalWrite(in pin : int, in value : bool) : int
+
+
+  if (pin < 8) {
+
+    if (pinMode (pin) == OUTPUT) {
+
+      if (value) {
+
+        out |= 1 << pin;
+      }
+      else {
+
+        out &= ~ (1 << pin);
+      }
+      return write();
+    }
+  }
+  return -1;
+!!!129026.cpp!!!	digitalRead(in pin : int) : int
+
+  int ret = -1;
+
+  if (pin < 8) {
+
+    ret = read();
+    if (ret >= 0) {
+
+      ret = ( ( (1 << pin) & ret) != 0);
+    }
+  }
+  return ret;
+!!!129154.cpp!!!	pinModes(in pinmodes : uint8_t) : int
+
+  pinmodes = ~pinmodes;
+
+  if (pinmodes != dir) {
+
+    dir = pinmodes;
+    return write();
+  }
+  return 0;
+!!!129282.cpp!!!	pinModes() : int
+
+
+  return (unsigned) ~dir;
+!!!129410.cpp!!!	write(in value : uint8_t) : int
+
+
+  out = value & ~dir;
+  return write();
+!!!129538.cpp!!!	read() : int
+
+
+  if (isOpen()) {
+    
+    return TwoWireDevice::read();
+  }
+  return 0;
+!!!129666.cpp!!!	write() : int
+
+
+  if (isOpen()) {
+
+    return TwoWireDevice::write (dir | (~dir & out));
+  }
+  return 0;

@@ -1,0 +1,108 @@
+class TwoWireDevice
+!!!129794.cpp!!!	TwoWireDevice(in slaveAddress : uint8_t, inout bus : TwoWire = Wire)
+
+!!!129922.cpp!!!	~TwoWireDevice()
+  
+  end();
+!!!130050.cpp!!!	begin() : bool
+
+
+  bus.begin();
+  return isOpen();
+!!!130178.cpp!!!	end() : void
+
+  bus.end();
+!!!130306.cpp!!!	write(in value : uint8_t) : int
+
+
+  return this->write (&value, 1);
+!!!130434.cpp!!!	read() : int
+
+  int ret;
+  uint8_t data = 0xFF;
+
+  ret = this->read (&data, 1);
+  if (ret == 1) {
+    ret = static_cast<unsigned> (data);
+  }
+  return ret;
+!!!130562.cpp!!!	write(in values : uint8_t, in len : uint16_t) : int
+
+  int ret;
+
+  bus.beginTransmission (address);
+  ret = bus.write (values, len);
+  if (ret > 0) {
+
+    if (bus.endTransmission() != 0) {
+
+      ret = -1;
+    }
+  }
+  return ret;
+!!!130690.cpp!!!	read(inout values : uint8_t, in len : uint16_t) : int
+
+  int ret;
+
+  ret = bus.requestFrom (address, len);
+  if (ret > 0) {
+
+    while (bus.available()) {
+
+      *values++ = bus.read();
+    }
+  }
+  return ret;
+!!!130818.cpp!!!	write(in dataAddress : uint8_t, in value : uint8_t) : int
+
+
+  return this->write (dataAddress, &value, 1);
+!!!130946.cpp!!!	read(in dataAddress : uint8_t) : int
+
+  int ret;
+  uint8_t data = 0xFF;
+
+  ret = this->read (dataAddress, &data, 1);
+  if (ret == 1) {
+    ret = static_cast<unsigned> (data);
+  }
+  return ret;
+!!!131074.cpp!!!	write(in dataAddress : uint8_t, in values : uint8_t, in len : uint16_t) : int
+
+  int ret;
+
+  bus.beginTransmission (address);
+
+  ret = bus.write (dataAddress);
+  if (ret == 1) {
+
+    ret = bus.write (values, len);
+    if (ret > 0) {
+
+      if (bus.endTransmission() != 0) {
+
+        ret = -1;
+      }
+    }
+  }
+
+  return ret;
+!!!131202.cpp!!!	read(in dataAddress : uint8_t, inout values : uint8_t, in len : uint16_t) : int
+
+  int ret = 0;
+
+  bus.beginTransmission (address);
+  ret = bus.write (dataAddress);
+
+  if (ret == 1) {
+
+    if (bus.endTransmission (false) == 0) {
+
+      ret = this->read (values, len);
+    }
+    else {
+      
+      ret = -1;
+    }
+  }
+  return ret;

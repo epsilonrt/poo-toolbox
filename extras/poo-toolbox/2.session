@@ -1,0 +1,14 @@
+window_sizes 1920 949 241 1673 772 120
+cleanlooks_style
+diagrams
+  active  classdiagram_ref 128130 // I2C Classes
+    1338 617 100 A4 0 0
+end
+show_stereotypes
+selected artifact_ref 128130 // pcf8574
+open
+  deploymentview_ref 128130 // src
+  class_ref 128130 // Pcf8574
+  class_ref 128258 // TwoWireDevice
+end
+end
