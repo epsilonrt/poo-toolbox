@@ -37,7 +37,7 @@ TwoWireDevice::~TwoWireDevice() {
 int TwoWireDevice::read (uint8_t *values, uint16_t len) {
   int ret;
 
-  ret = bus.requestFrom (address, len);
+  ret = bus.requestFrom (static_cast<uint16_t>(address), len);
   if (ret > 0) {
 
     while (bus.available()) {
